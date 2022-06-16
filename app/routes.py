@@ -1,8 +1,9 @@
 from flask_login import current_user, login_required, login_user, logout_user
-from app import app, db
+from app import app, db, admin
 from flask import flash, redirect, render_template, request, url_for
 from app.forms import LoginForm, RegistrationForm
 from app.models import Users
+from app.admin import UserModelView
 from werkzeug.urls import url_parse
 
 
@@ -74,4 +75,4 @@ def logout():
     return redirect(url_for('home'))
 
 
-
+admin.add_view(UserModelView(Users, db.session))
